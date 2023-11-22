@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="author" content="MICHAEL ANDRE FRANIATTE">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" type="image/png" href="img/favicon.png" />
+
+    <title>ChatOverlay by michael franiatte</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <style>
+        body, html {
+            background: transparent;
+        }
+    </style>
+
+</head>
+<body>
+    <script>
+        const bridge = chrome.webview.hostObjects.bridge;
+        var videoid = "id";
+        async function getLoadPage(apikey, channelid) {
+            var param = 'playlistId=' + channelid;
+            var responsef = await fetch('https://www.googleapis.com/youtube/v3/playlistItems?part=snippet,status&type=video&eventType=live&maxResults=1&' + param + '&key=' + apikey);
+            var files = await responsef.json();
+            for (let file of files.items) {
+                var isprivate = file.status.privacyStatus == 'private';
+                if (!isprivate) {
+                    videoid = file.snippet.resourceId.videoId;
+                    window.location.href = "https://www.youtube.com/watch?v=" + videoid;
+                    break;
+                }
+            }
+        }
+    </script>
+</body>
+</html>
