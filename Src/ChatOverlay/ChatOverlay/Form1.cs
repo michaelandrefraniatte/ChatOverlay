@@ -86,7 +86,7 @@ namespace ChatOverlay
             webView21.DefaultBackgroundColor = Color.Transparent;
             this.Controls.Add(webView21);
             webView21.NavigationCompleted += WebView21_NavigationCompleted;
-            if (!File.Exists(Application.StartupPath + @"\ChatOverlay.exe.WebView2\EBWebView\Local State"))
+            if (!File.Exists(Application.StartupPath + @"\ChatOverlay.exe.WebView2\EBWebView\Default\IndexedDB\https_www.youtube.com_0.indexeddb.leveldb/LOG.old"))
             {
                 this.TransparencyKey = Color.Empty;
             }
@@ -97,7 +97,7 @@ namespace ChatOverlay
             {
                 webView21.ExecuteScriptAsync("getLoadPage('apikey', 'channelid');".Replace("apikey", apikey).Replace("channelid", channelid)).ConfigureAwait(false);
             }
-            if (File.Exists(Application.StartupPath + @"\ChatOverlay.exe.WebView2\EBWebView\Local State"))
+            if (File.Exists(Application.StartupPath + @"\ChatOverlay.exe.WebView2\EBWebView\Default\IndexedDB\https_www.youtube.com_0.indexeddb.leveldb/LOG.old"))
             {
                 try
                 {
@@ -124,7 +124,7 @@ namespace ChatOverlay
         }
         private async void timer2_Tick(object sender, EventArgs e)
         {
-            if (File.Exists(Application.StartupPath + @"\ChatOverlay.exe.WebView2\EBWebView\Local State"))
+            if (File.Exists(Application.StartupPath + @"\ChatOverlay.exe.WebView2\EBWebView\Default\IndexedDB\https_www.youtube.com_0.indexeddb.leveldb/LOG.old"))
             {
                 try
                 {
