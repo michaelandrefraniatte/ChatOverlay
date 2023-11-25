@@ -79,7 +79,8 @@ namespace ChatOverlay
             CoreWebView2Environment environment = await CoreWebView2Environment.CreateAsync(null, null, options);
             await webView21.EnsureCoreWebView2Async(environment);
             webView21.CoreWebView2.SetVirtualHostNameToFolderMapping("appassets", "assets", CoreWebView2HostResourceAccessKind.DenyCors);
-            webView21.CoreWebView2.Settings.AreDevToolsEnabled = true;
+            webView21.CoreWebView2.Settings.AreDevToolsEnabled = false;
+            webView21.CoreWebView2.Settings.IsStatusBarEnabled = false;
             webView21.CoreWebView2.AddHostObjectToScript("bridge", new Bridge());
             webView21.Source = new Uri("https://appassets/index.html");
             webView21.Dock = DockStyle.Fill;
@@ -219,6 +220,127 @@ namespace ChatOverlay
                                     iframes[i].setAttribute('src', '');
                                 }
                             }
+                        }
+                        catch { }
+                        try {
+                            var allelements = document.querySelectorAll('*');
+                            for (var i = 0; i < allelements.length; i++) {
+                                var classname = allelements[i].className;
+                                if (classname.indexOf('ytp-ad') > -1 | classname.indexOf('-ad-') > -1 | classname.indexOf('ad-') > -1 | classname.indexOf('ads-') > -1 | classname.indexOf('ad-showing') > -1 | classname.indexOf('ad-container') > -1 | classname.indexOf('ytp-ad-overlay-open') > -1 | classname.indexOf('video-ads') > -1)  {
+                                    allelements[i].innerHTML = '';
+                                }
+                            }
+                        }
+                        catch { }
+                        try {
+                            var players = document.getElementById('movie_player');
+                            for (let i = 0; i < players.length; i++) {
+                                players.classList.remove('ad-interrupting');
+                                players.classList.remove('playing-mode');
+                                players.classList.remove('ytp-autohide');
+                                players.classList.add('ytp-hide-info-bar');
+                                players.classList.add('playing-mode');
+                                players.classList.add('ytp-autohide');
+                            }
+                        }
+                        catch { }
+                        try {
+                            var fabelements = document.querySelectorAll('yt-reaction-control-panel-button-view-model');
+                            for (var i = 0; i < fabelements.length; i++) {
+                                    fabelements[i].innerHTML = '';
+                            }
+                        }
+                        catch { }
+                        try {
+                            var fabelement = document.querySelector('#fab-container');
+                            fabelement.innerHTML = '';
+                        }
+                        catch { }
+                        try {
+                            var contents = document.querySelectorAll('.ad-showing');
+                            contents.forEach(elem => elem.style.display = 'none');
+                        }
+                        catch { }
+                        try {
+                            var contents = document.querySelectorAll('.ad-container');
+                            contents.forEach(elem => elem.style.display = 'none');
+                        }
+                        catch { }
+                        try {
+                            var contents = document.querySelectorAll('.ytp-ad-overlay-open');
+                            contents.forEach(elem => elem.style.display = 'none');
+                        }
+                        catch { }
+                        try {
+                            var contents = document.querySelectorAll('.video-ads');
+                            contents.forEach(elem => elem.style.display = 'none');
+                        }
+                        catch { }
+                        try {
+                            var contents = document.querySelectorAll('.ytp-ad-overlay-image');
+                            contents.forEach(elem => elem.style.display = 'none');
+                        }
+                        catch { }
+                        try {
+                            var contents = document.querySelectorAll('.ytp-ad-overlay-container');
+                            contents.forEach(elem => elem.style.display = 'none');
+                        }
+                        catch { }
+                        try {
+                            var contents = document.querySelectorAll('.ytd-carousel-ad-renderer');
+                            contents.forEach(elem => elem.style.display = 'none');
+                        }
+                        catch { }
+                        try {
+                            var contents = document.querySelectorAll('ytd-ad-slot-renderer');
+                            contents.forEach(elem => elem.style.display = 'none');
+                        }
+                        catch { }
+                        try {
+                            var contents = document.querySelectorAll('ytd-action-companion-ad-renderer');
+                            contents.forEach(elem => elem.style.display = 'none');
+                        }
+                        catch { }
+                        try {
+                            var contents = document.querySelectorAll('ytd-engagement-panel-section-list-renderer');
+                            contents.forEach(elem => elem.style.display = 'none');
+                        }
+                        catch { }
+                        try {
+                            var contents = document.querySelectorAll('ytd-player-legacy-desktop-watch-ads-renderer');
+                            contents.forEach(elem => elem.style.display = 'none');
+                        }
+                        catch { }
+                        try {
+                            var contents = document.querySelectorAll('yt-reaction-control-panel-button-view-model');
+                            contents.forEach(elem => elem.style.display = 'none');
+                        }
+                        catch { }
+                        try {
+                            var contents = document.querySelectorAll('tp-yt-paper-dialog');
+                            contents.forEach(elem => elem.style.display = 'none');
+                        }
+                        catch { }
+                        try {
+                            var contents = document.querySelectorAll('ytd-statement-banner-renderer');
+                            contents.forEach(elem => elem.style.display = 'none');
+                        }
+                        catch { }
+                        try {
+                            var contents = document.querySelectorAll('ytd-brand-video-singleton-renderer');
+                            contents.forEach(elem => elem.style.display = 'none');
+                        }
+                        catch { }
+                        try {
+                            var contents = document.querySelector('#reaction-control-panel').style.display = 'none';
+                        }
+                        catch { }
+                        try {
+                            var contents = document.querySelector('#emoji-fountain').style.display = 'none';
+                        }
+                        catch { }
+                        try {
+                            var contents = document.querySelector('#fab-container').style.display = 'none';
                         }
                         catch { }
                         try {
