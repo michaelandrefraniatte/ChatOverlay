@@ -35,6 +35,7 @@ namespace ChatOverlay
         private static int width = Screen.PrimaryScreen.Bounds.Width;
         private static int height = Screen.PrimaryScreen.Bounds.Height;
         private static string apikey, channelid;
+        private static bool getstate = false;
         public static int[] wd = { 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         public static int[] wu = { 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         public static bool[] ws = { false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false };
@@ -71,6 +72,9 @@ namespace ChatOverlay
                 file.ReadLine();
                 channelid = file.ReadLine();
             }
+        }
+        private async void Start()
+        {
             CoreWebView2EnvironmentOptions options = new CoreWebView2EnvironmentOptions("--disable-web-security", "--allow-file-access-from-files", "--allow-file-access");
             CoreWebView2Environment environment = await CoreWebView2Environment.CreateAsync(null, null, options);
             await webView21.EnsureCoreWebView2Async(environment);
@@ -82,12 +86,35 @@ namespace ChatOverlay
             webView21.DefaultBackgroundColor = Color.Transparent;
             this.Controls.Add(webView21);
             webView21.NavigationCompleted += WebView21_NavigationCompleted;
+            if (!File.Exists(Application.StartupPath + @"\ChatOverlay.exe.WebView2\EBWebView\Local State"))
+            {
+                this.TransparencyKey = Color.Empty;
+            }
         }
         private async void WebView21_NavigationCompleted(object sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs e)
         {
             if (webView21.Source == new Uri("https://appassets/index.html"))
             {
                 webView21.ExecuteScriptAsync("getLoadPage('apikey', 'channelid');".Replace("apikey", apikey).Replace("channelid", channelid)).ConfigureAwait(false);
+            }
+            if (File.Exists(Application.StartupPath + @"\ChatOverlay.exe.WebView2\EBWebView\Local State"))
+            {
+                try
+                {
+                    string stringinject = @"
+                    var style = `<style>
+                        body, html {
+                            background-color: transparent !important;
+                        }
+                        * {
+                            background-color: black !important;
+                        }
+                    </style>`;
+                    document.getElementsByTagName('head')[0].innerHTML += style;
+                    ";
+                    await execScriptHelper(stringinject);
+                }
+                catch { }
             }
         }
         private async Task<String> execScriptHelper(String script)
@@ -97,9 +124,11 @@ namespace ChatOverlay
         }
         private async void timer2_Tick(object sender, EventArgs e)
         {
-            try
+            if (File.Exists(Application.StartupPath + @"\ChatOverlay.exe.WebView2\EBWebView\Local State"))
             {
-                string stringinject = @"
+                try
+                {
+                    string stringinject = @"
                     if (window.location.href.indexOf('youtube') > -1 | window.location.href.indexOf('youtu.be') > -1) {
                         try {
                             var playButton = document.querySelector('.ytp-large-play-button:visible');
@@ -328,22 +357,10 @@ namespace ChatOverlay
                         catch { }
                     }
                     ";
-                await execScriptHelper(stringinject);
+                    await execScriptHelper(stringinject);
+                }
+                catch { }
             }
-            catch { }
-            try
-            {
-                string stringinject = @"
-                    var style = `<style>
-                        html {
-                            background-color: transparent !important;
-                        }
-                    </style>`;
-                    document.getElementsByTagName('head')[0].innerHTML += style;
-                    ";
-                await execScriptHelper(stringinject);
-            }
-            catch { }
         }
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -360,6 +377,15 @@ namespace ChatOverlay
                 this.Size = new Size(width, height);
                 this.Location = new Point(0, 0);
                 this.TopMost = true;
+            }
+            valchanged(2, GetAsyncKeyState(Keys.Add));
+            if (wd[2] == 1)
+            {
+                if (!getstate)
+                {
+                    Start();
+                    getstate = true;
+                }
             }
         }
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
