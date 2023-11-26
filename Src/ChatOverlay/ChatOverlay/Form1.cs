@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Web.WebView2.Core;
@@ -31,6 +32,8 @@ namespace ChatOverlay
         public static extern void NtSetTimerResolution(uint DesiredResolution, bool SetResolution, ref uint CurrentResolution);
         public static uint CurrentResolution = 0;
         public static int x, y;
+        private static ThreadStart threadstart;
+        private static Thread thread;
         public static WebView2 webView21 = new WebView2();
         private static int width = Screen.PrimaryScreen.Bounds.Width;
         private static int height = Screen.PrimaryScreen.Bounds.Height;
@@ -72,6 +75,7 @@ namespace ChatOverlay
                 file.ReadLine();
                 channelid = file.ReadLine();
             }
+            this.pictureBox1.SizeMode = PictureBoxSizeMode.CenterImage;
         }
         private async void Start()
         {
@@ -87,10 +91,29 @@ namespace ChatOverlay
             webView21.DefaultBackgroundColor = Color.Transparent;
             this.Controls.Add(webView21);
             webView21.NavigationCompleted += WebView21_NavigationCompleted;
-            if (!File.Exists(Application.StartupPath + @"\ChatOverlay.exe.WebView2\EBWebView\Default\IndexedDB\https_www.youtube.com_0.indexeddb.leveldb/LOG.old"))
+            if (File.Exists(Application.StartupPath + @"\ChatOverlay.exe.WebView2\EBWebView\Default\IndexedDB\https_www.youtube.com_0.indexeddb.leveldb/LOG.old"))
+            {
+                threadstart = new ThreadStart(ShowStream);
+                thread = new Thread(threadstart);
+                thread.Start();
+            }
+            else
             {
                 this.TransparencyKey = Color.Empty;
+                this.pictureBox1.Image.Dispose();
+                this.pictureBox1.Image = null;
+                this.Controls.Remove(this.pictureBox1);
+                this.pictureBox1.Dispose();
             }
+        }
+        private void ShowStream()
+        {
+            System.Threading.Thread.Sleep(20000);
+            this.pictureBox1.BackColor = Color.Magenta;
+            this.pictureBox1.Image.Dispose();
+            this.pictureBox1.Image = null;
+            this.Controls.Remove(this.pictureBox1);
+            this.pictureBox1.Dispose();
         }
         private async void WebView21_NavigationCompleted(object sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs e)
         {
