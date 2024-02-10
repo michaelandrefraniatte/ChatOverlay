@@ -2,7 +2,6 @@ C:\Users\micha\Documents\github\ChatOverlay\Src\ChatOverlay\ChatOverlay\bin\Rele
 C:\Users\micha\Documents\github\ChatOverlay\Src\ChatOverlay\ChatOverlay\bin\Release\ChatOverlay.exe
 C:\Users\micha\Documents\github\ChatOverlay\Src\ChatOverlay\ChatOverlay\bin\Release\ChatOverlay.pdb
 C:\Users\micha\Documents\github\ChatOverlay\Src\ChatOverlay\ChatOverlay\obj\Release\ChatOverlay.csproj.AssemblyReference.cache
-C:\Users\micha\Documents\github\ChatOverlay\Src\ChatOverlay\ChatOverlay\obj\Release\ChatOverlay.csproj.SuggestedBindingRedirects.cache
 C:\Users\micha\Documents\github\ChatOverlay\Src\ChatOverlay\ChatOverlay\obj\Release\ChatOverlay.Form1.resources
 C:\Users\micha\Documents\github\ChatOverlay\Src\ChatOverlay\ChatOverlay\obj\Release\ChatOverlay.Properties.Resources.resources
 C:\Users\micha\Documents\github\ChatOverlay\Src\ChatOverlay\ChatOverlay\obj\Release\ChatOverlay.csproj.GenerateResource.cache
