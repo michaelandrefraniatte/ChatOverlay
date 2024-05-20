@@ -6,6 +6,6 @@ C:\Users\micha\Documents\github\ChatOverlay\Src\ChatOverlay\ChatOverlay\obj\Rele
 C:\Users\micha\Documents\github\ChatOverlay\Src\ChatOverlay\ChatOverlay\obj\Release\ChatOverlay.Properties.Resources.resources
 C:\Users\micha\Documents\github\ChatOverlay\Src\ChatOverlay\ChatOverlay\obj\Release\ChatOverlay.csproj.GenerateResource.cache
 C:\Users\micha\Documents\github\ChatOverlay\Src\ChatOverlay\ChatOverlay\obj\Release\ChatOverlay.csproj.CoreCompileInputs.cache
-C:\Users\micha\Documents\github\ChatOverlay\Src\ChatOverlay\ChatOverlay\obj\Release\ChatOverlay.csproj.CopyComplete
 C:\Users\micha\Documents\github\ChatOverlay\Src\ChatOverlay\ChatOverlay\obj\Release\ChatOverlay.exe
 C:\Users\micha\Documents\github\ChatOverlay\Src\ChatOverlay\ChatOverlay\obj\Release\ChatOverlay.pdb
+C:\Users\micha\Documents\github\ChatOverlay\Src\ChatOverlay\ChatOverlay\obj\Release\ChatOver.088A2F3E.Up2Date
